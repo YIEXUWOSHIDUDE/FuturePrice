@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "省钱提醒（FuturePrice）",
+  "version": "0.3.4",
+  "description": "在已启用的购物网页商品价格旁显示「10年≈金额」假设情景。全部本地处理，不联网。",
+  "minimum_chrome_version": "116",
+  "permissions": ["storage", "scripting", "activeTab"],
+  "optional_host_permissions": ["http://*/*", "https://*/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "省钱提醒",
+    "default_popup": "popup.html"
+  }
+}

@@ -1,0 +1,18 @@
+<!doctype html><meta charset="utf-8"><title>Independent generic commerce structures</title>
+<style>body{font:16px Arial;margin:20px}.grid{display:flex;flex-wrap:wrap;gap:16px}.x{width:220px;height:220px;padding:10px;border:1px solid #ddd}.x a{display:block;height:48px;margin-bottom:16px}.x [role=img]{background:#eee;height:48px}.price{font-size:22px}button{display:block;margin-top:40px}.sr-only{position:absolute;clip:rect(1px,1px,1px,1px);width:1px;height:1px;overflow:hidden}.part{display:inline-block}.decimal{visibility:hidden;position:absolute}h2{font-size:15px}</style>
+<p>Article: I spent $100 on groceries. Delivery $5. Coupon $10. These are not products.</p><nav style="width:600px;height:140px"><a href="/browse"><div role="img" style="width:60px;height:60px">Groceries</div></a><div>Add <span><b>$25</b></span> for FREE Same-Day delivery</div></nav>
+<div class="grid">
+<article class="x" itemscope itemtype="https://schema.org/Product"><h2 itemprop="name">Microdata</h2><a href="/p/1"><div role="img">Image</div></a><div itemprop="offers" itemscope itemtype="https://schema.org/Offer"><meta itemprop="priceCurrency" content="USD"><span itemprop="price" class="price">12.50</span></div><button>Buy</button></article>
+<div class="x" id="plain"><a href="/p/2"><div role="img">Plain dollar product</div></a><span class="price">$49.99</span><button>Buy</button></div>
+<div class="x"><a href="/p/3"><div role="img">Euro</div></a><span class="price">€19.90</span><button>Buy</button></div>
+<div class="x"><a href="/p/4"><div role="img">Pound</div></a><span class="price">£10</span><button>Buy</button></div>
+<div class="x"><a href="/p/5"><div role="img">Chinese yuan</div></a><span class="price">￥99</span><button>Buy</button></div>
+<div class="x"><a href="/p/6"><div role="img">Split markup</div></a><span class="price"><span class="sr-only">$3.69</span><span class="part" aria-hidden="true"><span>$</span><span>3<span class="decimal">.</span></span><sup>69</sup></span></span><button>Buy</button></div>
+<div class="x"><a href="/p/7"><div role="img">A11y duplicate</div></a><span class="price"><span class="sr-only">$19.99</span><span aria-hidden="true">$19.99</span></span><button>Buy</button></div>
+<div class="x"><a href="/p/8"><div role="img">Main and unit</div></a><div><span class="price">$25</span><small> ($2.50/lb)</small></div><button>Buy</button></div>
+<div class="x"><a href="/p/9"><div role="img">Conditional coupon</div></a><div>Coupon <span class="price">$2</span></div><button>Buy</button></div>
+<div class="x"><a href="/p/10"><div role="img">Range</div></a><div><span class="price">$20</span> – <span class="price">$30</span></div><button>Buy</button></div>
+<div class="x"><a href="/p/11"><div role="img">No product price</div></a><div>Delivery <span class="price">$4.99</span></div><button>Buy</button></div>
+<div class="x"><a href="/p/12"><div role="img">Former price</div></a><del>$40</del><div><span class="price">$15</span></div><button>Buy</button></div>
+</div>
+<section style="width:600px;height:160px" id="editorial"><h2>Budget discussion, not a product</h2><i role="img" style="display:inline-block;width:16px;height:16px">✓</i><a href="/article">Read more</a><p>I spent <span>$100</span> yesterday.</p></section>

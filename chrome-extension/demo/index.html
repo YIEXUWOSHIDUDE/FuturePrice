@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>合成测试商店 · FuturePrice 扩展演示</title>
+  <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+  <header>
+    <h1>合成测试商店（全部为虚构商品）</h1>
+    <p class="note">本页只用于本地测试扩展；不联网、不收集任何信息。</p>
+    <div class="controls">
+      <button id="change-price">改首价（A：¥100 → ¥101）</button>
+      <button id="insert">插入商品</button>
+      <button id="remove">删除最后插入的商品</button>
+      <button id="open-modal">打开弹窗</button>
+      <span id="clicks">商品按钮点击：0</span>
+    </div>
+  </header>
+
+  <main>
+    <h2>正例</h2>
+    <div class="grid" id="positives"></div>
+
+    <h2>结构化标记（schema.org，CNY）</h2>
+    <div class="grid">
+      <div class="card" itemscope itemtype="https://schema.org/Product">
+        <div class="thumb" role="img" aria-label="商品图"></div>
+        <a href="#e" class="title" itemprop="name">合成商品 E 台灯</a>
+        <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+          <span class="cur">¥</span><span itemprop="price">128</span>
+          <meta itemprop="priceCurrency" content="CNY">
+        </div>
+        <div class="space"></div>
+        <button class="buy">加入购物车</button>
+      </div>
+    </div>
+
+    <h2>负例（不应出现标签）</h2>
+    <div class="grid" id="negatives"></div>
+
+    <h2>正文中的金额（不是商品卡片，不应出现标签）</h2>
+    <p class="article">店铺公告：本周满 ¥88 包邮，详情见活动说明。</p>
+  </main>
+
+  <div id="modal" class="modal" hidden>
+    <div class="dialog" role="dialog" aria-modal="true">
+      <h3>活动弹窗</h3>
+      <p>弹窗盖住商品时，被盖住的价格不应显示标签。</p>
+      <button id="close-modal">关闭</button>
+    </div>
+  </div>
+
+  <script src="demo.js"></script>
+</body>
+</html>

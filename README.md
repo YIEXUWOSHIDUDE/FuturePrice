@@ -1,54 +1,56 @@
 # FuturePrice
 
-一个计划中的 iPhone 购物提醒工具：把当前商品价格或实付款乘以 **1.6**，提醒自己是否愿意为这次购买放弃对应的未来价值。
+在商品价格旁提醒你：**不买，10年后 ≈ 金额**。
 
-例如，¥100 → ¥160。¥160 已包含今天的 ¥100，不再重复相加。固定系数是个人提醒，不代表保证的投资收益，也不对应特定投资期限。
+例如商品 ¥100，默认 1.5 倍情景显示 ¥150（含本金）。这是帮助思考其他用途的假设，不是折扣、投资预测或收益承诺。倍数可修改，没有适合所有人的最优系数。
 
-## 当前状态
+## Chrome 扩展 · 0.3.4 内测版
 
-项目已建立，尚未实现可安装的 iPhone App。没有完成 iPhone 编译或真机验证；临时目录中的早期草稿未纳入本仓库。
+直接读取网页 DOM，逐商品显示提醒，不使用 OCR。识别依赖商品结构、可见金额、数量和价格上下文；生产代码不按购物网站域名分支。
 
-目标设备：iPhone 17 Pro，iOS 27.0.0。
+- 支持动态改价、增删商品、购物车数量变化与站点开关。
+- 购物车区分单价和行金额；无法核对的多件商品不猜金额。
+- 每个网站由用户主动启用后才申请访问权限。
+- 处理在本地完成，不读取 Cookie、不上传页面、不使用远程模型。
 
-2026-10-06 环境检查：当前 Mac 的 xcode-select 指向 CommandLineTools，Swift 6.3.3；未找到可用的 iPhone SDK。下一阶段首先需要完整 Xcode、对应 SDK、开发签名与真机安装条件。
+### 安装（macOS / Windows / Linux 的 Chrome）
 
-## 预期体验
+1. 在本仓库点击 **Code → Download ZIP** 并解压，或克隆仓库。
+2. 打开 `chrome://extensions`，开启「开发者模式」。
+3. 点击「加载已解压的扩展程序」，选择 `chrome-extension/`。
+4. 打开购物页面，点击扩展图标，再点「在此网站开启」。
 
-1. 开启一次“购物模式”，完成系统要求的屏幕共享确认。
-2. 正常切换和使用购物 App，无需逐个配置、分享链接、手动截图或输入金额。
-3. 在灵动岛显示当前可信金额及 ×1.6 提醒；实付款优先，明确单一商品价作为次选并标明类型。
-4. 月供、优惠额、多商品或条件不明的价格不猜测。切换页面后撤下旧金额，再确认新金额。
-5. 结束购物模式，停止采集与识别并结束 Live Activity。
+目前没有 Chrome Web Store 安装包。完整规则、演示和测试入口见 [扩展说明](chrome-extension/README.md)。
 
-默认不保存屏幕、不上传数据；不接入云端模型、后端服务或分析遥测。
+### 测试与打包
 
-## 候选技术路线
+在仓库根目录运行（Node.js 18+；打包需 Python 3）：
 
-系统授权全屏采集 → 内存画面 → 本地 Vision OCR → 金额与页面有效性判断 → ActivityKit / 灵动岛。
+```sh
+node --test chrome-extension/test/rules.test.js chrome-extension/test/background.test.js chrome-extension/test/cart-totals.test.js
+python3 scripts/package-chrome.py
+```
 
-- Apple 的 iOS 27 ScreenCaptureKit 示例包含系统选择器、屏幕帧回调与 screen-capture 后台模式，但没有实现后台 OCR。
-- Vision 提供文字识别，ActivityKit 提供 Live Activity 呈现与更新。
-- 上述能力组合后的后台连续性、实际显示延迟、旧值撤下速度、耗电和购物 App 覆盖率均未验证。
-- 灵动岛的呈现由系统控制；不承诺全 App 覆盖、永久后台运行或一秒内更新。
+打包只收录扩展运行文件和说明，生成 `output/FuturePrice-Chrome-0.3.4.zip`。截图、日志、测试夹具和浏览器数据不会进入安装包。
 
-工程上计划只处理最新画面，丢弃过时任务，屏蔽自身提醒区域，避免旧页结果迟到或识别到自己的提醒。具体实现以正式 SDK 和真机验证为准。
+### 已验证与限制
 
-## 开发顺序
+0.3.4 修复购物车多件商品退回单价，以及提醒撑高后推荐区无法收起的问题。2026-10-16 完成 28 项单元测试、14 组隔离浏览器回归；Allbirds 与 Target 真实购物车的数量变化和移除已核对。详细证据范围见 [开发记录](development.md)。
 
-1. 建立最小 App 与 Live Activity 扩展，在真机打通采集 → OCR → 灵动岛。
-2. 实现价格优先级、歧义拒绝、页面切换和过时结果失效规则。
-3. 测量速度、连续运行和功耗，再扩展代表性购物 App 测试。
+这些样本不能证明适配所有购物网站。复杂折扣、缺失数量或小计、图片价格、跨域 iframe、closed shadow root、逗号小数格式等仍可能漏标。商品金额不等于含税费、运费和附加服务的最终结账扣款。尚无市场覆盖率、功耗或性能达标结论。
 
-具体检查项见 [真机验收清单](docs/acceptance.md)。所有未勾选项均未完成。
+## Android 开发实验
 
-## 开发边界
+`app/` 使用 Kotlin、MediaProjection、本地 ML Kit 中文 OCR 和悬浮提醒；`fixture/` 是独立合成商店；`directprobe/` 是独立无障碍节点读取实验，不是产品默认路径。
 
-本目录是独立 Git 仓库。所有源码、配置和提交限定在本目录；不依赖或修改外层 Feiran 的代码、部署、数据和版本历史。Apple 示例按需参考并遵守其许可，不整体引入其压缩包或内嵌 .git。
+Android 尚未完成真实购物 App 与真机验收，不作为正式可用版本宣传。环境、构建与操作见 [Android 开发说明](docs/android.md)，历史验证见 [验证记录](docs/verification.md)。
 
-## 官方参考
+## 仓库内容
 
-- [Capturing screen content on iOS](https://developer.apple.com/documentation/screencapturekit/capturing-screen-content-on-ios)
-- [Vision text recognition](https://developer.apple.com/documentation/vision/recognizetextrequest)
-- [Live Activities](https://developer.apple.com/documentation/activitykit/displaying-live-data-with-live-activities)
-- [Developer Mode](https://developer.apple.com/documentation/xcode/enabling-developer-mode-on-a-device)
-- [Personal Team 与签名限制](https://developer.apple.com/help/account/basics/about-your-developer-account)
+- `chrome-extension/`：Chrome 扩展、合成样本与结构回放测试。
+- `app/`、`fixture/`、`directprobe/`：Android 产品与隔离实验。
+- `scripts/`：本地构建、验证、打包入口。
+- `docs/`：验收范围与行为研究依据。
+- `development.md`：CC 与 Codex 的实现、验证和剩余限制记录。
+
+安装包、真实购物截图、原始调试记录、浏览器配置及密钥不纳入 Git。提交问题时请描述价格结构和复现步骤，避免附带账号、地址、订单号或登录数据。

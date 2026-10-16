@@ -1,0 +1,21 @@
+body { margin: 0; font: 14px/1.5 -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f6f6f6; color: #222; }
+header { position: sticky; top: 0; z-index: 10; background: #fff; padding: 10px 16px; border-bottom: 1px solid #ddd; }
+h1 { font-size: 18px; margin: 0; }
+.note { margin: 2px 0 6px; color: #666; font-size: 12px; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+main { padding: 8px 16px 40px; }
+h2 { font-size: 15px; margin: 18px 0 8px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.card { background: #fff; border-radius: 8px; padding: 10px; display: flex; flex-direction: column; }
+.thumb { height: 90px; border-radius: 6px; background: linear-gradient(135deg, #dfe7f5, #c5d3ec); }
+.title { margin: 8px 0 4px; color: #222; text-decoration: none; }
+.price { color: #d6281c; font-size: 20px; font-weight: 600; }
+.price .cur { font-size: 14px; }
+.price del { color: #999; font-size: 13px; font-weight: 400; margin-right: 6px; }
+.price .tip { font-size: 13px; font-weight: 400; margin-right: 2px; }
+.space { height: 30px; }
+.buy { align-self: flex-start; }
+.article { background: #fff; padding: 10px; border-radius: 8px; }
+.modal { position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, .45); display: flex; align-items: center; justify-content: center; }
+.modal[hidden] { display: none; }
+.dialog { background: #fff; border-radius: 10px; padding: 16px 20px; width: min(420px, 90vw); }

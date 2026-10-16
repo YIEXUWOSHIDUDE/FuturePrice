@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="service_description">FuturePrice 调试试验：读取淘宝、拼多多和测试商店当前窗口中的价格文字节点，只在内存中统计并画诊断框。不截图、不联网、不保存内容。显示的是实验候选，不代表商品支持。</string>
+</resources>

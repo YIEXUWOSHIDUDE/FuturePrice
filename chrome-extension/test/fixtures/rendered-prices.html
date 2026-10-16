@@ -1,0 +1,14 @@
+<!doctype html><meta charset="utf-8"><title>Rendered currency and split prices</title>
+<style>body{font:16px Arial;margin:24px}.tiles{display:flex;gap:20px;margin:20px 0}.tile{width:240px;padding:12px;border:1px solid #ddd}.photo{width:170px;height:100px;background:#ddd}.money::before{content:'¥';font-size:14px}.money{font-size:26px}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.split{display:flex;align-items:flex-start}.symbol{font-size:20px;line-height:28px}.whole{font-size:40px;line-height:40px}.cents{font-size:16px;line-height:24px}</style>
+<h1>Catalog</h1>
+<div class=tiles id=css-list>
+ <div class=tile><div role=img class=photo>Photo</div><div><div>Soft everyday cotton socks</div><div class=money>3.96</div></div></div>
+ <div class=tile><div role=img class=photo>Photo</div><div><div>Small keychain ornament</div><div class=money>1.42</div></div></div>
+</div>
+<div class=tiles>
+ <article class=tile id=split-card><div role=img class=photo>Mouse photo</div><a href=/mouse>Wireless optical mouse</a><div class=split><span class=sr>$17.99</span><span class=symbol aria-hidden=true>$</span><span class=whole aria-hidden=true>17</span><span class=cents aria-hidden=true>99</span></div><button>Add to cart</button></article>
+ <article class=tile><div role=img class=photo>Other mouse</div><a href=/mouse2>Bluetooth compact mouse</a><div class=split><span class=sr>$37.99</span><span class=symbol aria-hidden=true>$</span><span class=whole aria-hidden=true>37</span><span class=cents aria-hidden=true>99</span></div><button>Add to cart</button></article>
+</div>
+<section id=negative><h2>Article about prices</h2><p>A price example <span class=money>9.99</span> is only an illustration.</p></section>
+
+<div class=tiles><div class=tile><label><input type=radio name=shipping checked><div role=img class=photo>Truck icon</div><div>Shipping</div><div>Arrives October 21</div><div><div>$99.00</div></div></label></div><div class=tile><label><input type=radio name=shipping><div role=img class=photo>Truck icon</div><div>Express delivery</div><div>Arrives October 20</div><div><div>$199.00</div></div></label></div></div>

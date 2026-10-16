@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>省钱提醒</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <h1>省钱提醒</h1>
+  <p class="sub">在购物网页的商品价格下方显示「不买，10年后 ≈ 金额」：假设这笔钱留下来，按倍数估算 10 年后约值多少（含本金）。这不是折扣、不是今天省下的钱，也不是收益承诺。</p>
+
+  <section>
+    <div class="row"><span class="label">当前网站</span><span id="site">—</span></div>
+    <button id="toggle" disabled>读取中…</button>
+    <p id="status" class="status"></p>
+  </section>
+
+  <section>
+    <label class="label" for="multiplier">10年倍数（1–10，最多三位小数）</label>
+    <div class="row">
+      <input id="multiplier" inputmode="decimal" autocomplete="off">
+      <button id="save">保存</button>
+    </div>
+    <p id="scenario" class="hint"></p>
+    <p id="mhint" class="hint"></p>
+  </section>
+
+  <p class="foot">全部在本机处理，不联网、不读取账号或 Cookie。</p>
+  <script src="lib/rules.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
